@@ -13,7 +13,7 @@ func part1() {
 			safeReports++
 		}
 	}
-	log.Println("Safe reports:", safeReports)
+	log.Println("Safe reports part1:", safeReports)
 }
 
 func part2() {
@@ -23,7 +23,7 @@ func part2() {
 			safeReports++
 		}
 	}
-	log.Println("Safe reports:", safeReports)
+	log.Println("Safe reports part2:", safeReports)
 }
 
 func isSafe(nums []int) bool {
