@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Function to open the puzzle file and read the data
+// open the puzzle file and read the data
 int **open_puzzle(const char *filename, int *rows) {
   FILE *fptr;
   int **arr = NULL;
@@ -57,21 +57,29 @@ int calculate_distance(int **data, int rows) {
   int result = 0;
 
   for (int i = 0; i < rows; i++)
+    // calculate distance between values and make it positive
     result += abs(data[i][1] - data[i][0]);
 
   return result;
 }
 
 int calculate_similarity(int **data, int rows) {
+  // initialize result value
   int result = 0;
+
+  // loop through rows
   for (int i = 0; i < rows; i++) {
-    int appearances = 0;
+    // get the left value and initialize how many appearances it has in the
+    // right column
     int val = data[i][0];
+    int appearances = 0;
     for (int j = 0; j < rows; j++) {
-      if (data[j][1] == val) {
+      // if left value = right value, +1
+      if (val == data[j][1]) {
         appearances++;
       }
     }
+    // add similarity
     result += val * appearances;
   }
   return result;
