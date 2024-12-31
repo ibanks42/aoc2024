@@ -53,12 +53,27 @@ void smallest_to_largest(int **data, int rows) {
   }
 }
 
-int calculate(int **data, int rows) {
+int calculate_distance(int **data, int rows) {
   int result = 0;
 
   for (int i = 0; i < rows; i++)
     result += abs(data[i][1] - data[i][0]);
 
+  return result;
+}
+
+int calculate_similarity(int **data, int rows) {
+  int result = 0;
+  for (int i = 0; i < rows; i++) {
+    int appearances = 0;
+    int val = data[i][0];
+    for (int j = 0; j < rows; j++) {
+      if (data[j][1] == val) {
+        appearances++;
+      }
+    }
+    result += val * appearances;
+  }
   return result;
 }
 
@@ -68,13 +83,19 @@ int main() {
 
   sample = open_puzzle("sample.txt", &sample_rows);
   smallest_to_largest(sample, sample_rows);
-  int sample_result = calculate(sample, sample_rows);
+  int sample_result = calculate_distance(sample, sample_rows);
   printf("sample part1: %d\n", sample_result);
 
   puzzle = open_puzzle("puzzle.txt", &puzzle_rows);
   smallest_to_largest(puzzle, puzzle_rows);
-  int puzzle_result = calculate(puzzle, puzzle_rows);
+  int puzzle_result = calculate_distance(puzzle, puzzle_rows);
   printf("puzzle part1: %d\n", puzzle_result);
+
+  int sample_similarity = calculate_similarity(sample, sample_rows);
+  printf("sample part2: %d\n", sample_similarity);
+
+  int puzzle_similarity = calculate_similarity(puzzle, puzzle_rows);
+  printf("puzzle part2: %d\n", puzzle_similarity);
 
   return 0;
 }
